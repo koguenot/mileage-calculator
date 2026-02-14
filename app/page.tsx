@@ -108,7 +108,6 @@ export default function Home() {
     direction: DepartureDirection;
   } | null>(null);
   const routeListRef = useRef<HTMLDivElement>(null);
-  const dateInputRef = useRef<HTMLInputElement>(null);
 
   const currentRoutes = ROUTES_BY_AIRLINE[airline];
   const selectedRouteOption = currentRoutes.find((r) => r.value === route);
@@ -331,34 +330,30 @@ export default function Home() {
               >
                 출발 예정일
               </label>
-              <input
-                ref={dateInputRef}
-                id="travel-date"
-                type="date"
-                value={travelDate}
-                onChange={(e) => setTravelDate(e.target.value)}
-                min="2026-01-01"
-                max="2028-12-31"
-                className="sr-only"
-                aria-label="출발 예정일 선택"
-              />
-              <button
-                type="button"
-                onClick={() => {
-                  const el = dateInputRef.current;
-                  if (!el) return;
-                  if (typeof el.showPicker === "function") {
-                    el.showPicker();
-                  } else {
-                    el.focus();
-                    el.click();
-                  }
-                }}
-                className={`flex h-[calc(theme(spacing.3)*2+1.5rem)] w-full items-center justify-center gap-2 rounded-lg border border-stone-200 bg-stone-50/50 px-4 py-3 text-center transition focus:border-stone-400 focus:outline-none focus:ring-2 focus:ring-[var(--color-astra)]/30 ${travelDate ? "text-stone-800" : "text-stone-400"}`}
-              >
-                <span>{travelDate ? formatDateMMDDYY(travelDate) : "MM/DD/YY"}</span>
-                <span className="text-base" aria-hidden>📅</span>
-              </button>
+              <div className="relative flex w-full items-center">
+                <input
+                  id="travel-date"
+                  type="date"
+                  value={travelDate}
+                  onChange={(e) => setTravelDate(e.target.value)}
+                  min="2026-01-01"
+                  max="2028-12-31"
+                  aria-label="출발 예정일 선택"
+                  className="block h-12 min-h-[44px] w-full cursor-pointer appearance-none rounded-lg border border-stone-200 bg-stone-50/50 px-4 py-3 text-center outline-none transition focus:border-stone-400 focus:ring-2 focus:ring-[var(--color-astra)]/30 [color-scheme:light] [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-100 [&::-webkit-calendar-picker-indicator]:min-h-[44px] [&::-webkit-calendar-picker-indicator]:min-w-[44px] [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:left-0 [&::-webkit-calendar-picker-indicator]:right-0 [&::-webkit-calendar-picker-indicator]:top-0 [&::-webkit-calendar-picker-indicator]:bottom-0 [&::-webkit-calendar-picker-indicator]:w-full"
+                  style={{ color: "transparent" }}
+                />
+                <span
+                  className="pointer-events-none absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 text-center"
+                  aria-hidden
+                >
+                  {travelDate ? (
+                    <span className="text-stone-800">{formatDateMMDDYY(travelDate)}</span>
+                  ) : (
+                    <span className="text-stone-400">MM/DD/YY</span>
+                  )}
+                  <span className="text-base">📅</span>
+                </span>
+              </div>
               {travelDate && (
                 <p
                   className={`mt-1.5 text-center text-xs font-medium ${
