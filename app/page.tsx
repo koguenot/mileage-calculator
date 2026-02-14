@@ -18,7 +18,7 @@ import {
   AIRLINE_CONFIG,
   type DepartureDirection,
 } from "./data/airlines";
-import { EXTERNAL_LINKS, EXTERNAL_LABELS } from "./data/links";
+import { EXTERNAL_LINKS, EXTERNAL_LABELS, EXTERNAL_LINK_PROPS } from "./data/links";
 
 /** 외부 연결(새 창) 표시 아이콘 */
 function LinkOutIcon({ className }: { className?: string }) {
@@ -572,8 +572,7 @@ export default function Home() {
             <div className="mt-8 flex flex-col items-center gap-2 w-full max-w-md mx-auto px-1">
               <a
                 href={direction === "us" ? config.bookingUrlEn : config.bookingUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+                {...EXTERNAL_LINK_PROPS}
                 className="flex w-full items-center justify-center gap-2 rounded-lg border bg-white py-2.5 text-sm font-medium transition hover:shadow-md active:shadow-sm"
                 style={{ borderColor: config.brandColor, color: config.brandColor }}
               >
@@ -582,8 +581,7 @@ export default function Home() {
               </a>
               <a
                 href={EXTERNAL_LINKS.economyCompare}
-                target="_blank"
-                rel="noopener noreferrer"
+                {...EXTERNAL_LINK_PROPS}
                 className="flex w-full items-center justify-center gap-2 rounded-lg border border-stone-200 bg-gray-50 py-2.5 text-sm font-medium text-stone-600 transition hover:bg-white hover:shadow-md active:shadow-sm"
               >
                 {EXTERNAL_LABELS.economyCompare}
@@ -591,8 +589,7 @@ export default function Home() {
               </a>
               <a
                 href={EXTERNAL_LINKS.businessCompare}
-                target="_blank"
-                rel="noopener noreferrer"
+                {...EXTERNAL_LINK_PROPS}
                 className="flex w-full items-center justify-center gap-2 rounded-lg border border-stone-200 bg-gray-50 py-2.5 text-sm font-medium text-stone-600 transition hover:bg-white hover:shadow-md active:shadow-sm"
               >
                 {EXTERNAL_LABELS.businessCompare}
@@ -604,8 +601,7 @@ export default function Home() {
             <div className="mt-4 grid gap-2 grid-cols-1 sm:grid-cols-2 max-w-md mx-auto px-1">
               <a
                 href={EXTERNAL_LINKS.mileageCard}
-                target="_blank"
-                rel="noopener noreferrer"
+                {...EXTERNAL_LINK_PROPS}
                 className="flex items-center justify-center gap-2 rounded-lg border border-stone-200 bg-gray-50 py-2.5 px-4 text-center text-sm font-medium text-stone-600 transition hover:bg-white hover:shadow-md active:shadow-sm"
               >
                 {EXTERNAL_LABELS.mileageCard}
@@ -613,8 +609,7 @@ export default function Home() {
               </a>
               <a
                 href={EXTERNAL_LINKS.esimDeal}
-                target="_blank"
-                rel="noopener noreferrer"
+                {...EXTERNAL_LINK_PROPS}
                 className="flex items-center justify-center gap-2 rounded-lg border border-stone-200 bg-gray-50 py-2.5 px-4 text-center text-sm font-medium text-stone-600 transition hover:bg-white hover:shadow-md active:shadow-sm"
               >
                 {EXTERNAL_LABELS.esimDeal}
