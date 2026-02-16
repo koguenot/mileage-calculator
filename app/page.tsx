@@ -189,7 +189,8 @@ export default function Home() {
       <main className="mx-auto max-w-xl px-4 py-12 sm:px-6 sm:py-24">
         <header className="mb-10 text-center sm:mb-12">
           <h1 className="text-xl font-bold leading-snug tracking-tight text-stone-800 sm:text-3xl sm:leading-tight">
-            항공권 마일리지 vs 현금,<br className="sm:hidden" />
+            항공권 마일리지 vs 현금
+            <br />
             지금 뭐가 더 <span className="text-[var(--color-astra)]">이득일까?</span>
           </h1>
           <p className="mt-3 text-sm text-stone-500 sm:text-base">
@@ -330,7 +331,7 @@ export default function Home() {
               >
                 출발 예정일
               </label>
-              <div className="flex min-h-12 items-center overflow-hidden rounded-lg border border-stone-200 bg-stone-50/50 focus-within:border-stone-400 focus-within:ring-2 focus-within:ring-[var(--color-astra)]/30">
+              <div className="relative flex min-h-12 items-center overflow-hidden rounded-lg border border-stone-200 bg-stone-50/50 focus-within:border-stone-400 focus-within:ring-2 focus-within:ring-[var(--color-astra)]/30">
                 <input
                   id="travel-date"
                   type="date"
@@ -339,8 +340,15 @@ export default function Home() {
                   min="2026-01-01"
                   max="2028-12-31"
                   aria-label="출발 예정일 선택"
-                  className="relative min-h-[44px] flex-1 cursor-pointer appearance-none border-0 bg-transparent px-4 py-3 text-center text-stone-800 outline-none [color-scheme:light] [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-0"
+                  className="relative min-h-[44px] flex-1 cursor-pointer appearance-none border-0 bg-transparent px-4 py-3 text-center outline-none [color-scheme:light] [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-0"
+                  style={{ color: "transparent" }}
                 />
+                <span
+                  className="pointer-events-none absolute left-0 right-8 flex items-center justify-center text-stone-800"
+                  aria-hidden
+                >
+                  {travelDate ? formatDateMMDDYY(travelDate) : "MM/DD/YY"}
+                </span>
                 <span className="pointer-events-none shrink-0 pr-3 text-xl leading-none text-stone-400" aria-hidden>🗓</span>
               </div>
               {travelDate && (
@@ -557,19 +565,6 @@ export default function Home() {
               </p>
             )}
 
-            <p className="mt-4 text-center text-[11px] leading-snug text-stone-400">
-              본 화면은 Handchosen의 자산입니다. 캡처하여 블로그, 카페 등에 게시할 경우 반드시 출처(
-              <a
-                href="https://mileage.handchosen.kr"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-stone-500 underline underline-offset-1 hover:text-stone-600"
-              >
-                https://mileage.handchosen.kr
-              </a>
-              )를 포함해야 합니다.
-            </p>
-
             {/* 하단 광고: 출발지별 언어·내용 (모바일 2열 / PC 3열 2줄) — 6버튼, USA 6번은 항공사별 링크 */}
             {(() => {
               const dirLinks = getLinksByDirection(direction);
@@ -630,6 +625,19 @@ export default function Home() {
                 </div>
               );
             })()}
+
+            <p className="mt-6 text-center text-[11px] leading-snug text-stone-400">
+              본 화면은 Handchosen의 자산입니다. 캡처하여 블로그, 카페 등에 게시할 경우 반드시 출처(
+              <a
+                href="https://mileage.handchosen.kr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-stone-500 underline underline-offset-1 hover:text-stone-600"
+              >
+                https://mileage.handchosen.kr
+              </a>
+              )를 포함해야 합니다.
+            </p>
           </section>
         )}
 
