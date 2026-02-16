@@ -1,11 +1,10 @@
 /**
- * 외부 버튼·링크 URL 통합 관리 (출발지 탭별)
- * - 한국 출발: KOREA_LINKS (한글) / 미국 출발: USA_LINKS (영어)
- * - 링크·문구 수정은 이 파일에서만 하시면 됩니다. 저장 후 앱에 바로 반영됩니다.
- * - 복제본: links.backup.ts | 관리 안내: LINKS_README.md
- * - 모든 외부 링크는 EXTERNAL_LINK_PROPS 로 새 창(_blank)에서 열립니다.
+ * [복제본] links.ts 백업
+ * - 실제 앱에서 사용하는 파일은 links.ts 입니다.
+ * - 링크/문구 수정은 links.ts 에서 하시고, 복원이 필요할 때만 이 파일을 참고하세요.
+ * - 복원: 이 파일 내용을 links.ts 에 덮어쓰면 됩니다.
  *
- * 배치 (3/3 그리드): 1줄 [예약|일반석|렌터카/공항픽업] / 2줄 [호텔|eSIM|신용카드]
+ * 최종 백업 기준: 위 주석 작성 시점
  */
 
 /** 외부 링크용 공통 속성: 새 창에서 열기 + 보안 */
@@ -25,19 +24,13 @@ export type USACreditCardLinks = {
 
 /** 출발지별 링크·문구 구조 */
 export type DirectionLinks = {
-  /** 항공사 공식 예약 버튼 문구 (항공사명 가변 시 links.ts에서 수정) */
   bookingLabel: string;
   links: {
-    /** 실시간 일반석 최저가 */
     economyCompare: string;
-    /** 호텔 (한국: 미국 현지 / 미국: 한국 호텔) */
     hotelDeal: string;
-    /** eSIM */
     esimDeal: string;
-    /** 6번째: 한국 탭용 마일리지·신용카드 단일 링크 */
     mileageCard: string;
   };
-  /** 3번째 버튼: 한국=렌터카, 미국=공항 픽업 */
   slot3: Slot3;
   labels: {
     economyCompare: string;
@@ -45,7 +38,6 @@ export type DirectionLinks = {
     esimDeal: string;
     mileageCard: string;
   };
-  /** 미국 출발 탭 전용: 6번 버튼 항공사별 링크 (대한항공/아시아나) */
   usaCreditCard?: USACreditCardLinks;
 };
 
@@ -70,7 +62,7 @@ export const KOREA_LINKS: DirectionLinks = {
   },
 };
 
-/** 미국 출발 탭용 (영어) — 6번 버튼은 항공사별 usaCreditCard 사용 */
+/** 미국 출발 탭용 (영어) */
 export const USA_LINKS: DirectionLinks = {
   bookingLabel: "Book on Official Website",
   links: {
@@ -89,7 +81,6 @@ export const USA_LINKS: DirectionLinks = {
     esimDeal: "Korea Travel eSIM",
     mileageCard: "Best Mileage Credit Cards",
   },
-  /** 미국 출발 + 선택 항공사에 따라 6번 버튼 링크 (대한항공=KOREAN_AIR, 아시아나=ASIANA) */
   usaCreditCard: {
     KOREAN_AIR: "https://www.skypassvisa.com/credit/welcome.do?exp=&lang=en&redirect=homeSec1",
     ASIANA: "https://www.referyourchasecard.com/19u/7BA7HJYGDP",

@@ -18,7 +18,7 @@ import {
   AIRLINE_CONFIG,
   type DepartureDirection,
 } from "./data/airlines";
-import { EXTERNAL_LINKS, EXTERNAL_LABELS, EXTERNAL_LINK_PROPS } from "./data/links";
+import { getLinksByDirection, EXTERNAL_LINK_PROPS } from "./data/links";
 
 /** 외부 연결(새 창) 표시 아이콘 */
 function LinkOutIcon({ className }: { className?: string }) {
@@ -330,30 +330,16 @@ export default function Home() {
               >
                 출발 예정일
               </label>
-              <div className="relative flex w-full items-center">
-                <input
-                  id="travel-date"
-                  type="date"
-                  value={travelDate}
-                  onChange={(e) => setTravelDate(e.target.value)}
-                  min="2026-01-01"
-                  max="2028-12-31"
-                  aria-label="출발 예정일 선택"
-                  className="block h-12 min-h-[44px] w-full cursor-pointer appearance-none rounded-lg border border-stone-200 bg-stone-50/50 px-4 py-3 text-center outline-none transition focus:border-stone-400 focus:ring-2 focus:ring-[var(--color-astra)]/30 [color-scheme:light] [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-100 [&::-webkit-calendar-picker-indicator]:min-h-[44px] [&::-webkit-calendar-picker-indicator]:min-w-[44px] [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:left-0 [&::-webkit-calendar-picker-indicator]:right-0 [&::-webkit-calendar-picker-indicator]:top-0 [&::-webkit-calendar-picker-indicator]:bottom-0 [&::-webkit-calendar-picker-indicator]:w-full"
-                  style={{ color: "transparent" }}
-                />
-                <span
-                  className="pointer-events-none absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 text-center"
-                  aria-hidden
-                >
-                  {travelDate ? (
-                    <span className="text-stone-800">{formatDateMMDDYY(travelDate)}</span>
-                  ) : (
-                    <span className="text-stone-400">MM/DD/YY</span>
-                  )}
-                  <span className="text-base">📅</span>
-                </span>
-              </div>
+              <input
+                id="travel-date"
+                type="date"
+                value={travelDate}
+                onChange={(e) => setTravelDate(e.target.value)}
+                min="2026-01-01"
+                max="2028-12-31"
+                aria-label="출발 예정일 선택"
+                className="block h-12 min-h-[44px] w-full cursor-pointer appearance-none rounded-lg border border-stone-200 bg-stone-50/50 px-4 py-3 text-center text-stone-800 outline-none transition focus:border-stone-400 focus:ring-2 focus:ring-[var(--color-astra)]/30 [color-scheme:light] [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-0"
+              />
               {travelDate && (
                 <p
                   className={`mt-1.5 text-center text-xs font-medium ${
@@ -568,54 +554,66 @@ export default function Home() {
               </p>
             )}
 
-            {/* 수익화 버튼 (모바일 최적화 슬림 바) */}
-            <div className="mt-8 flex flex-col items-center gap-2 w-full max-w-md mx-auto px-1">
-              <a
-                href={direction === "us" ? config.bookingUrlEn : config.bookingUrl}
-                {...EXTERNAL_LINK_PROPS}
-                className="flex w-full items-center justify-center gap-2 rounded-lg border bg-white py-2.5 text-sm font-medium transition hover:shadow-md active:shadow-sm"
-                style={{ borderColor: config.brandColor, color: config.brandColor }}
-              >
-                {config.displayName} 공식 홈페이지 예약
-                <LinkOutIcon className="shrink-0 opacity-70" />
-              </a>
-              <a
-                href={EXTERNAL_LINKS.economyCompare}
-                {...EXTERNAL_LINK_PROPS}
-                className="flex w-full items-center justify-center gap-2 rounded-lg border border-stone-200 bg-gray-50 py-2.5 text-sm font-medium text-stone-600 transition hover:bg-white hover:shadow-md active:shadow-sm"
-              >
-                {EXTERNAL_LABELS.economyCompare}
-                <LinkOutIcon className="shrink-0 opacity-50" />
-              </a>
-              <a
-                href={EXTERNAL_LINKS.businessCompare}
-                {...EXTERNAL_LINK_PROPS}
-                className="flex w-full items-center justify-center gap-2 rounded-lg border border-stone-200 bg-gray-50 py-2.5 text-sm font-medium text-stone-600 transition hover:bg-white hover:shadow-md active:shadow-sm"
-              >
-                {EXTERNAL_LABELS.businessCompare}
-                <LinkOutIcon className="shrink-0 opacity-50" />
-              </a>
-            </div>
-
-            {/* 수익화 카드 Grid (슬림 스타일) */}
-            <div className="mt-4 grid gap-2 grid-cols-1 sm:grid-cols-2 max-w-md mx-auto px-1">
-              <a
-                href={EXTERNAL_LINKS.mileageCard}
-                {...EXTERNAL_LINK_PROPS}
-                className="flex items-center justify-center gap-2 rounded-lg border border-stone-200 bg-gray-50 py-2.5 px-4 text-center text-sm font-medium text-stone-600 transition hover:bg-white hover:shadow-md active:shadow-sm"
-              >
-                {EXTERNAL_LABELS.mileageCard}
-                <LinkOutIcon className="shrink-0 opacity-50" />
-              </a>
-              <a
-                href={EXTERNAL_LINKS.esimDeal}
-                {...EXTERNAL_LINK_PROPS}
-                className="flex items-center justify-center gap-2 rounded-lg border border-stone-200 bg-gray-50 py-2.5 px-4 text-center text-sm font-medium text-stone-600 transition hover:bg-white hover:shadow-md active:shadow-sm"
-              >
-                {EXTERNAL_LABELS.esimDeal}
-                <LinkOutIcon className="shrink-0 opacity-50" />
-              </a>
-            </div>
+            {/* 하단 광고: 출발지별 언어·내용 (모바일 2열 / PC 3열 2줄) — 6버튼, USA 6번은 항공사별 링크 */}
+            {(() => {
+              const dirLinks = getLinksByDirection(direction);
+              const link = (url: string) => (url && url !== "#" ? url : "#");
+              const creditCardHref =
+                direction === "us" && dirLinks.usaCreditCard
+                  ? link(
+                      dirLinks.usaCreditCard[airline === "korean-air" ? "KOREAN_AIR" : "ASIANA"]
+                    )
+                  : link(dirLinks.links.mileageCard);
+              const baseBtn =
+                "flex min-h-[3.25rem] w-full items-center justify-center rounded-lg border px-3 py-3 text-center text-sm font-medium leading-snug transition hover:shadow-md active:shadow-sm break-words";
+              return (
+                <div className="mt-8 grid w-full max-w-4xl mx-auto grid-cols-2 gap-3 lg:grid-cols-3">
+                  <a
+                    href={direction === "us" ? config.bookingUrlEn : config.bookingUrl}
+                    {...EXTERNAL_LINK_PROPS}
+                    className={`${baseBtn} bg-white`}
+                    style={{ borderColor: config.brandColor, color: config.brandColor }}
+                  >
+                    {dirLinks.bookingLabel}
+                  </a>
+                  <a
+                    href={link(dirLinks.links.economyCompare)}
+                    {...EXTERNAL_LINK_PROPS}
+                    className={`${baseBtn} border-stone-200 bg-stone-50/80 text-stone-700 hover:bg-white`}
+                  >
+                    {dirLinks.labels.economyCompare}
+                  </a>
+                  <a
+                    href={link(dirLinks.slot3.link)}
+                    {...EXTERNAL_LINK_PROPS}
+                    className={`${baseBtn} border-stone-200 bg-stone-50/80 text-stone-700 hover:bg-white`}
+                  >
+                    {dirLinks.slot3.label}
+                  </a>
+                  <a
+                    href={link(dirLinks.links.hotelDeal)}
+                    {...EXTERNAL_LINK_PROPS}
+                    className={`${baseBtn} border-stone-200 bg-stone-50/80 text-stone-700 hover:bg-white`}
+                  >
+                    {dirLinks.labels.hotelDeal}
+                  </a>
+                  <a
+                    href={link(dirLinks.links.esimDeal)}
+                    {...EXTERNAL_LINK_PROPS}
+                    className={`${baseBtn} border-stone-200 bg-stone-50/80 text-stone-700 hover:bg-white`}
+                  >
+                    {dirLinks.labels.esimDeal}
+                  </a>
+                  <a
+                    href={creditCardHref}
+                    {...EXTERNAL_LINK_PROPS}
+                    className={`${baseBtn} border-stone-200 bg-stone-50/80 text-stone-700 hover:bg-white`}
+                  >
+                    {dirLinks.labels.mileageCard}
+                  </a>
+                </div>
+              );
+            })()}
           </section>
         )}
 
