@@ -40,7 +40,7 @@ export default function RootLayout({
         className={`${inter.variable} font-sans antialiased text-base`}
       >
         <RightClickGuard />
-        {children}
+        <div className="relative z-0">{children}</div>
       </body>
     </html>
   );

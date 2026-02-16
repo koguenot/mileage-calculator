@@ -557,6 +557,19 @@ export default function Home() {
               </p>
             )}
 
+            <p className="mt-4 text-center text-[11px] leading-snug text-stone-400">
+              본 화면은 Handchosen의 자산입니다. 캡처하여 블로그, 카페 등에 게시할 경우 반드시 출처(
+              <a
+                href="https://mileage.handchosen.kr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-stone-500 underline underline-offset-1 hover:text-stone-600"
+              >
+                https://mileage.handchosen.kr
+              </a>
+              )를 포함해야 합니다.
+            </p>
+
             {/* 하단 광고: 출발지별 언어·내용 (모바일 2열 / PC 3열 2줄) — 6버튼, USA 6번은 항공사별 링크 */}
             {(() => {
               const dirLinks = getLinksByDirection(direction);

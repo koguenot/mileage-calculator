@@ -14,5 +14,36 @@ export default function RightClickGuard() {
     return () => document.removeEventListener("contextmenu", handleContextMenu);
   }, []);
 
-  return null;
+  return (
+    <div
+      className="pointer-events-none fixed inset-0 -z-[1]"
+      aria-hidden
+    >
+      <svg
+        className="h-full w-full"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <pattern
+            id="handchosen-watermark"
+            width="200"
+            height="72"
+            patternUnits="userSpaceOnUse"
+          >
+            <text
+              x="0"
+              y="44"
+              fill="rgba(120,113,108,0.08)"
+              fontSize="28"
+              fontFamily="system-ui, sans-serif"
+              fontWeight="500"
+            >
+              Handchosen
+            </text>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#handchosen-watermark)" />
+      </svg>
+    </div>
+  );
 }
