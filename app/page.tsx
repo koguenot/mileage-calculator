@@ -330,16 +330,19 @@ export default function Home() {
               >
                 출발 예정일
               </label>
-              <input
-                id="travel-date"
-                type="date"
-                value={travelDate}
-                onChange={(e) => setTravelDate(e.target.value)}
-                min="2026-01-01"
-                max="2028-12-31"
-                aria-label="출발 예정일 선택"
-                className="block h-12 min-h-[44px] w-full cursor-pointer appearance-none rounded-lg border border-stone-200 bg-stone-50/50 px-4 py-3 text-center text-stone-800 outline-none transition focus:border-stone-400 focus:ring-2 focus:ring-[var(--color-astra)]/30 [color-scheme:light] [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-0"
-              />
+              <div className="flex min-h-12 items-center overflow-hidden rounded-lg border border-stone-200 bg-stone-50/50 focus-within:border-stone-400 focus-within:ring-2 focus-within:ring-[var(--color-astra)]/30">
+                <input
+                  id="travel-date"
+                  type="date"
+                  value={travelDate}
+                  onChange={(e) => setTravelDate(e.target.value)}
+                  min="2026-01-01"
+                  max="2028-12-31"
+                  aria-label="출발 예정일 선택"
+                  className="relative min-h-[44px] flex-1 cursor-pointer appearance-none border-0 bg-transparent px-4 py-3 text-center text-stone-800 outline-none [color-scheme:light] [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-0"
+                />
+                <span className="pointer-events-none shrink-0 pr-3 text-xl leading-none text-stone-400" aria-hidden>🗓</span>
+              </div>
               {travelDate && (
                 <p
                   className={`mt-1.5 text-center text-xs font-medium ${
