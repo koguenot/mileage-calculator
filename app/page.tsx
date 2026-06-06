@@ -180,8 +180,9 @@ export default function Home() {
       `📊 직접 계산해보기`,
       `https://mileage.handchosen.kr`,
     ].join("\n");
+    const isMobile = navigator.maxTouchPoints > 0;
     try {
-      if (typeof navigator.share === "function") {
+      if (isMobile && typeof navigator.share === "function") {
         await navigator.share({ text: shareText });
         setShareStatus("shared");
       } else {
