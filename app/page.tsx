@@ -20,27 +20,7 @@ import {
 } from "./data/airlines";
 import { getLinksByDirection, EXTERNAL_LINK_PROPS } from "./data/links";
 
-/** 외부 연결(새 창) 표시 아이콘 */
-function LinkOutIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      width="12"
-      height="12"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-      <polyline points="15 3 21 3 21 9" />
-      <line x1="10" y1="14" x2="21" y2="3" />
-    </svg>
-  );
-}
+
 
 const BRAND = "#1400C8"; // 핸쵸슨 브랜드 컬러
 const THRESHOLD_KR = 15;
@@ -48,12 +28,7 @@ const GAUGE_MAX_KR = 25;
 const THRESHOLD_US = 1.5;
 const GAUGE_MAX_US = 3;
 
-// ─── 개선 1: 유류할증료 공시 링크 ───────────────────────────────────────────
-// ⚠️ 배포 전 실제 접속 여부 확인 권장
-const FUEL_SURCHARGE_URLS: Record<AirlineId, string> = {
-  "korean-air": "https://www.koreanair.com/kr/ko/footer/notice/fuelSurcharge",
-  asiana: "https://flyasiana.com/C/KR/KO/contents/fuel-surcharge",
-};
+
 
 // ─── 개선 2: 기준값 툴팁 ────────────────────────────────────────────────────
 const THRESHOLD_TOOLTIP: Record<"kr" | "us", string> = {
@@ -409,17 +384,8 @@ export default function Home() {
                 onChange={(e) => { const v = e.target.value.replace(/\D/g, ""); setTaxFuel(v ? Number(v).toLocaleString() : ""); }}
                 className={`w-full rounded-lg border border-stone-200 bg-stone-50/50 px-4 py-3 text-center text-stone-800 placeholder:text-stone-400 outline-none transition ${focusRing}`}
               />
-              {/* ✨ 개선 1 */}
               <p className="mt-1.5 text-center text-xs text-stone-400">
-                💡 유류할증료는 매월 변동됩니다.{" "}
-                <a
-                  href={FUEL_SURCHARGE_URLS[airline]}
-                  {...EXTERNAL_LINK_PROPS}
-                  className="inline-flex items-center gap-0.5 text-stone-500 underline underline-offset-2 hover:text-stone-700"
-                >
-                  {AIRLINE_CONFIG[airline].displayName} 현재 금액 확인
-                  <LinkOutIcon className="ml-0.5" />
-                </a>
+                💡 유류할증료는 매월 변동됩니다. 각 항공사 홈페이지 공지사항에서 확인 후 입력해주세요.
               </p>
             </div>
 
