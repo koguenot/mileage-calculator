@@ -220,7 +220,7 @@ export default function Home() {
   const focusRing = "focus:ring-2 focus:ring-[#1400C8]/25 focus:border-[#1400C8]/60";
 
   return (
-    <div className="min-h-screen bg-stone-50/80">
+    <div className="min-h-screen bg-gray-100">
       <main className="mx-auto max-w-xl px-4 py-12 sm:px-6 sm:py-24">
         <header className="mb-10 text-center sm:mb-12">
           <h1 className="text-xl font-bold leading-snug tracking-tight text-stone-800 sm:text-3xl sm:leading-tight">
