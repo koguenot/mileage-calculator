@@ -26,6 +26,25 @@ export const metadata: Metadata = {
     title: "대한항공·아시아나 마일리지 가치 계산기 | 현금 vs 마일 비교 판독",
     description:
       "보유한 마일리지, 지금 쓰는 게 이득일까요? 출발지만 입력하면 현금 구매와 마일리지 예매 중 무엇이 유리한지 실시간으로 비교해 드립니다.",
+    images: [
+      {
+        url: "https://handchosen.kr/wp-content/uploads/2026/02/korean-air-asiana-mileage-value-calculator-2026-1024x949.webp",
+        width: 1024,
+        height: 949,
+        alt: "대한항공 아시아나 마일리지 가치 계산기",
+      },
+    ],
+    locale: "ko_KR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "대한항공·아시아나 마일리지 가치 계산기 | 현금 vs 마일 비교 판독",
+    description:
+      "보유한 마일리지, 지금 쓰는 게 이득일까요? 출발지만 입력하면 현금 구매와 마일리지 예매 중 무엇이 유리한지 실시간으로 비교해 드립니다.",
+    images: [
+      "https://handchosen.kr/wp-content/uploads/2026/02/korean-air-asiana-mileage-value-calculator-2026-1024x949.webp",
+    ],
   },
 };
 

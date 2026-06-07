@@ -207,7 +207,16 @@ export default function Home() {
           </h1>
           <p className="mt-3 text-sm text-stone-500 sm:text-base">
             <span className="inline-flex items-center gap-1">✅ 유류할증료 포함</span>{" "}
-            미주 노선 마일리지 효율 판독기 (by 핸쵸슨)
+            미주 노선 마일리지 효율 판독기 (by{" "}
+            <a
+              href="https://handchosen.kr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-stone-700 transition"
+            >
+              핸쵸슨
+            </a>
+            )
           </p>
         </header>
 
